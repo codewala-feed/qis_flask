@@ -25,3 +25,16 @@ def multiplication(num1, num2):
 @app.route("/div/<num1>/<num2>", methods=["GET"])
 def division(num1, num2):
     return f"<h1>{num1} / {num2} = {int(num1) / int(num2)}</h1>"
+
+@app.route("/calci/<opr>/<num1>/<num2>")
+def calculation(opr, num1, num2):
+    if opr == "add":
+        return f"<h1>{num1} + {num2} = {int(num1) + int(num2)}</h1>"
+    elif opr == "sub":
+        return f"<h1>{num1} - {num2} = {abs(int(num1) - int(num2))}</h1>"
+    elif opr == "mul":
+        return f"<h1>{num1} x {num2} = {int(num1) * int(num2)}</h1>"
+    elif opr == "div":
+        return f"<h1>{num1} / {num2} = {int(num1) / int(num2)}</h1>"
+    else:
+        return "Invalid Parameters, please enter valid path"
