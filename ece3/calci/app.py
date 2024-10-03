@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def multiplication(num1, num2):
 def division(num1, num2):
     return f"<h1>{num1} / {num2} = {int(num1) / int(num2)}</h1>"
 
-@app.route("/calci/<opr>/<num1>/<num2>")
+@app.route("/calci/<opr>/<num1>/<num2>", methods=["GET"])
 def calci(opr, num1, num2):
     num1 = int(num1)
     num2 = int(num2)
@@ -41,3 +41,25 @@ def calci(opr, num1, num2):
     else:
         return "Invalid Inputs, please enter valid operator and nums"
 
+
+@app.route("/project", methods=["GET", "POST"])
+def calculator():
+    if request.method == "POST":
+        n1 = int(request.form["num1"])
+        n2 = int(request.form["num2"])
+        o = request.form["opr"]
+        
+        if o == "add":
+            output = f"[CALCI]: {n1} + {n2} = {n1 + n2}"
+            return render_template("index.html", data=output)
+        elif o == "sub":
+            output = f"[CALCI]: {n1} - {n2} = {n1 - n2}"
+            return render_template("index.html", data=output)
+        elif o == "mul":
+            output = f"[CALCI]: {n1} x {n2} = {n1 * n2}"
+            return render_template("index.html", data=output) 
+        elif o == "div":
+            output = f"[CALCI]: {n1} / {n2} = {n1 / n2}"
+            return render_template("index.html", data=output) 
+    else:
+        return render_template("index.html")
