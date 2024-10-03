@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/style.js"></script>
+</head>
+<body>
+    <div class="first-div">
+        <form method="post">
+            <input type="number" name="num1" placeholder="Enter Number1">
+            <select name="opr">
+                <option value="add">+</option>
+                <option value="sub">-</option>
+                <option value="mul">x</option>
+                <option value="div">/</option>
+            </select>
+            <input type="number" name="num2" placeholder="Enter Number2">
+            <button type="submit" onmouseenter="entered()">Calculate</button>
+        </form>
+    </div>
+
+    <div class="output-div">
+        {{data}}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+.first-div{
+    float: left;
+    width: 60%;
+    border: 4px solid black;
+    margin: 10% 20% 0% 20%;
+    background-color: antiquewhite;
+}
+
+.first-div input, .first-div select{
+    float: left;
+    width: 30%;
+    margin: 3% 0% 3% 2%;
+    font-size: 30px;
+}
+
+.first-div button{
+    float: left;
+    width: 30%;
+    font-size: 30px;
+    margin: 2% 0% 5% 35%;
+}
+
+
+.output-div{
+    float: left;
+    width: 30%;
+    font-size: 30px;
+    margin: 5% 0% 0% 35%;
+    text-align: center;
+}
