@@ -1,30 +1,14 @@
 from flask import Flask, render_template, request
+from pymongo import MongoClient
 
 app = Flask(__name__)
+my_client = MongoClient("localhost", 27017)
+my_db = my_client["ece3_calci"] # database
+results = my_db["results"] # collection
 
 @app.route("/", methods=["GET"])
 def homepage():
     return "<h1>Hey coder, welcome to homepage</h1>"
-
-@app.route("/wish", methods=["GET"])
-def wishpage():
-    return "<h1>We wish you happy coding</h1>"
-
-@app.route("/add/<num1>/<num2>", methods=["GET"])
-def addition(num1, num2):
-    return f"<h1>{num1} + {num2} = {int(num1) + int(num2)}</h1>"
-
-@app.route("/sub/<num1>/<num2>", methods=["GET"])
-def subtraction(num1, num2):
-    return f"<h1>{num1} - {num2} = {abs(int(num1) - int(num2))}</h1>"
-
-@app.route("/mul/<num1>/<num2>", methods=["GET"])
-def multiplication(num1, num2):
-    return f"<h1>{num1} x {num2} = {int(num1) * int(num2)}</h1>"
-
-@app.route("/div/<num1>/<num2>", methods=["GET"])
-def division(num1, num2):
-    return f"<h1>{num1} / {num2} = {int(num1) / int(num2)}</h1>"
 
 @app.route("/calci/<opr>/<num1>/<num2>", methods=["GET"])
 def calci(opr, num1, num2):
@@ -41,7 +25,6 @@ def calci(opr, num1, num2):
     else:
         return "Invalid Inputs, please enter valid operator and nums"
 
-
 @app.route("/project", methods=["GET", "POST"])
 def calculator():
     if request.method == "POST":
@@ -51,15 +34,31 @@ def calculator():
         
         if o == "add":
             output = f"[CALCI]: {n1} + {n2} = {n1 + n2}"
+            results.insert_one(
+                {"num1":n1, "num2": n2, "operation":o, "result": n1+n2}
+            )
             return render_template("index.html", data=output)
         elif o == "sub":
             output = f"[CALCI]: {n1} - {n2} = {n1 - n2}"
+            results.insert_one(
+                {"num1":n1, "num2": n2, "operation":o, "result": n1-n2}
+            )
             return render_template("index.html", data=output)
         elif o == "mul":
             output = f"[CALCI]: {n1} x {n2} = {n1 * n2}"
+            results.insert_one(
+                {"num1":n1, "num2": n2, "operation":o, "result": n1*n2}
+            )
             return render_template("index.html", data=output) 
         elif o == "div":
-            output = f"[CALCI]: {n1} / {n2} = {n1 / n2}"
-            return render_template("index.html", data=output) 
+            try:
+                output = f"[CALCI]: {n1} / {n2} = {n1 / n2}"
+                results.insert_one(
+                {"num1":n1, "num2": n2, "operation":o, "result": n1/n2}
+            )
+                return render_template("index.html", data=output)
+            except Exception:
+                error = "Please change num2 as non-zero"
+                return render_template("index.html", data=error)
     else:
         return render_template("index.html")

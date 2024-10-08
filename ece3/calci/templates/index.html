@@ -3,25 +3,25 @@
 <head>
     <title>Document</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <script src="../static/js/style.js"></script>
+    
 </head>
 <body>
     <div class="first-div">
         <form method="post">
-            <input type="number" name="num1" placeholder="Enter Number1">
+            <input type="number" required name="num1" placeholder="Enter Number1">
             <select name="opr">
                 <option value="add">+</option>
                 <option value="sub">-</option>
                 <option value="mul">x</option>
                 <option value="div">/</option>
             </select>
-            <input type="number" name="num2" placeholder="Enter Number2">
-            <button id="sub-btn" onmouseover="entered()" type="submit">Calculate</button>
+            <input type="number" required name="num2" placeholder="Enter Number2">
+            <button id="btn1" type="submit">Calculate</button>
         </form>
     </div>
     <div class="output-div">
         {{data}}
     </div>
-    
+    <script src="../static/js/style.js"></script>
 </body>
 </html>
