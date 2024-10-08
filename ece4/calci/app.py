@@ -26,8 +26,12 @@ def calculator():
             output = f"{num1} x {num2} = {num1*num2}"
             return render_template("index.html", data=output) 
         elif opr == "div":
-            output = f"{num1} / {num2} = {num1/num2}"
-            return render_template("index.html", data=output) 
+            if num2 != 0:
+                output = f"{num1} / {num2} = {num1/num2}"
+                return render_template("index.html", data=output) 
+            else:
+                error = "Please change num2 as non-zero"
+                return render_template("index.html", data=error)
         else:
             return "Invalid operation"
     else:
