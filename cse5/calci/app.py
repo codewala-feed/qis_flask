@@ -6,6 +6,19 @@ my_client = MongoClient("localhost", 27017)
 my_db = my_client["cse5_calci"]
 results =  my_db["results"]
 
+"""
+# Get the details from bytexl mongodb connection info
+host = "ocdb.app"
+port = 5050
+database = ""
+username = ""
+password = ""
+connection_string = f"mongodb://{username}:{password}@{host}:{port}/{database}
+my_client = MongoClient(connection_string)
+my_db = my_client["cse5_calci"]
+results =  my_db["results"]
+"""
+
 @app.route("/", methods=["GET", "POST"])
 def calculator():
     if request.method == "POST":
