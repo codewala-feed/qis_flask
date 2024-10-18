@@ -5,9 +5,9 @@ app = Flask(__name__)
 my_connection = sql.connect(
     host="ocdb.app",
     port=5051,
-    database="db_42veu6nve",
-    user="user_42veu6nve",
-    password="p42veu6nve"
+    database="db_42veu6nve", #your database
+    user="user_42veu6nve", #your username
+    password="p42veu6nve" #your password
 )
 my_cursor = my_connection.cursor()
 query = """ 
