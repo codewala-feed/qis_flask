@@ -2,8 +2,17 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 
 app = Flask(__name__)
-my_client = MongoClient("localhost", 27017)
-my_db = my_client["ece4_calci"] #database
+# get the below details from byteXL nimbus
+host = "ocdb.app"
+port = 5050
+database = "" # your database
+username = "" # your username
+password = "" # your password
+
+connection_string = f"mongodb://{username}:{password}@{host}:{port}/{database}"
+
+my_client = MongoClient(connection_string)
+my_db = my_client[database] #database
 results = my_db["results"] # collection
 
 @app.route("/", methods=["GET"])
