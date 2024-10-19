@@ -3,8 +3,16 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-my_client = MongoClient("localhost", 27017)
-my_db = my_client["csit_bs_calci"]
+host = "ocdb.app"
+port = 5050
+database = "" # your database
+username = "" # your username
+password = "" # your password
+
+connection_str = f"mongodb://{username}:{password}@{host}:{port}/{database}"
+
+my_client = MongoClient(connection_str)
+my_db = my_client[database]
 results = my_db["results"]
 
 
