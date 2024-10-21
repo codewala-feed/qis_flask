@@ -1,13 +1,18 @@
 from flask import Flask, request, render_template
 from flask_mail import Mail, Message
 from pymongo import MongoClient
+
 app = Flask(__name__)
+
+# mail configurations
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USERNAME"] = "" #your email
 app.config["MAIL_PASSWORD"] = "" #your password
 mail = Mail(app)
+
+# Database configurations
 host = "ocdb.app"
 port = 5050
 database = "" # your databse
@@ -15,6 +20,7 @@ username = "" # your username
 password = "" # your password
 connection_str = f"mongodb://{username}:{password}@{host}:{port}/{database}"
 my_client =  MongoClient(connection_str)
+
 my_db = my_client[database]
 result = my_db["result"]
 
