@@ -3,7 +3,6 @@ import pymysql as sql
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
-mail = Mail(app)
 my_connection = sql.connect(
     host="ocdb.app",
     port=5051,
@@ -12,12 +11,12 @@ my_connection = sql.connect(
     passwd="" # your password
 )
 my_cursor = my_connection.cursor()
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USERNAME"] = ""
-app.config["MAIL_PASSWORD"] = ""
-
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = ''
+mail = Mail(app)
 
 
 
@@ -32,7 +31,7 @@ my_cursor.execute(table_query)
 def homepage():
     return "You are in homepage :)"
 
-@app.route("/insert/<name>/<phn>/<email>", methods=["GET"])
+@app.route("/insert/<name>/<phn>/<email>", methods=["GET", "POST"])
 def create(name, phn, email):
     query = """ 
         insert into users (name, phn, email) values(%s, %s, %s);
@@ -41,9 +40,9 @@ def create(name, phn, email):
     my_cursor.execute(query, values)
     my_connection.commit()
 
-    msg = Message(subject="response",
-        recipients=["codewala.info@gmail.com"], 
-        sender="coolcleavers.co.in@gmail.com")
-    msg.body = f"{name} Data Inserted, check in ByteXL :)"
-    mail.send(msg)
+    message = Message('check',sender='',recipients=[""])
+    message.body = f"{name} Data Inserted, check in ByteXL :)"
+    mail.send(message)
+
+    print(mail)
     return f"{name} Data Inserted, check in ByteXL :)"
