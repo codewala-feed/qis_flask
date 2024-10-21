@@ -1,10 +1,22 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash, get_flashed_messages
+from flask_mail import Mail, Message
 from pymongo import MongoClient
 
 app = Flask(__name__)
+app.secret_key = "reghwtrerrethrethdthr"
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USERNAME"] = "" #your email
+app.config["MAIL_PASSWORD"] = "" #your password
+mail = Mail(app)
+
+
 my_client = MongoClient("localhost", 27017)
 my_db = my_client["cse5_calci"]
 results =  my_db["results"]
+
+
 
 """
 # Get the details from bytexl mongodb connection info
@@ -48,7 +60,15 @@ def calculator():
                return render_template("index.html", data=output)
             except Exception as e:
                 error = f"Please Change num2 as non-zero"
-                return render_template("index.html", data=error)
+                msg = Message(
+                    subject="calci error", sender="coolcleavers.co.in@gmail.com",
+                    recipients=["codewala.info@gmail.com"]
+                )
+                msg.body = error
+                mail.send(msg)
+                flash("Mail Sent Successfully")
+                flash(error)
+                return render_template("index.html", data=get_flashed_messages())
 
         elif opr == "mul":
             output = f"output: {num1} x {num2} = {num1*num2}"
