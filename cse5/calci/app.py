@@ -12,24 +12,23 @@ app.config["MAIL_PASSWORD"] = "" #your password
 mail = Mail(app)
 
 
-my_client = MongoClient("localhost", 27017)
-my_db = my_client["cse5_calci"]
-results =  my_db["results"]
+# my_client = MongoClient("localhost", 27017)
+# my_db = my_client["cse5_calci"]
+# results =  my_db["results"]
 
 
 
-"""
 # Get the details from bytexl mongodb connection info
 host = "ocdb.app"
 port = 5050
-database = ""
-username = ""
-password = ""
-connection_string = f"mongodb://{username}:{password}@{host}:{port}/{database}
+database = "db_42vjh6bg4"
+username = "user_42vjh6bg4"
+password = "p42vjh6bg4"
+connection_string = f"mongodb://{username}:{password}@{host}:{port}/{database}"
 my_client = MongoClient(connection_string)
-my_db = my_client["cse5_calci"]
+my_db = my_client[database]
 results =  my_db["results"]
-"""
+
 
 @app.route("/", methods=["GET", "POST"])
 def calculator():
