@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 host = "ocdb.app"
 port = 5050
-database = "" # your database
-username = "" # your username
-password = "" # your password
+database = "db_42vjh6bg4" # your database
+username = "user_42vjh6bg4" # your username
+password = "p42vjh6bg4" # your password
 
 connection_str = f"mongodb://{username}:{password}@{host}:{port}/{database}"
 
