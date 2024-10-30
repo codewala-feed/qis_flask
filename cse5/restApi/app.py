@@ -22,3 +22,16 @@ def create_data():
         return {"response":"User Created :)"}, 201
     else:
         return {"response":"Invalid Data"}, 404
+
+
+@app.route("/update", methods=["PUT"])
+def update_data():
+    raw = request.json
+    key = raw.get("user_id")
+    value = raw.get("data")
+    if key in details:
+        details[key] = value
+        return {"response":"user updated "}, 200
+    else:
+        return {"response":"Invalid User"}, 404
+        
