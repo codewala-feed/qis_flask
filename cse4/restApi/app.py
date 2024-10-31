@@ -23,3 +23,24 @@ def create_data():
         return {"response":"User Created"}, 201
     else:
         return {"response":"Invalid Data"}, 404
+
+@app.route("/update", methods=["PUT"])
+def update_data():
+    raw = request.json
+    key = raw.get("user_id")
+    value = raw.get("data")
+    if key in details:
+        details[key] = value
+        return {"response":"User Updated"}, 200
+    else:
+        return {"response":"User Not found"}, 404
+
+@app.route("/delete", methods=["DELETE"])
+def delete_data():
+    raw = request.json
+    user = raw.get("user_id")
+    if user in details:
+        details.pop(user)
+        return {"response":"User Deleted :("},200
+    else:
+        return {"response":"User Not Found"}, 404

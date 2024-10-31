@@ -33,5 +33,15 @@ def update_data():
         details[key] = value
         return {"response":"user updated "}, 200
     else:
-        return {"response":"Invalid User"}, 404
-        
+        return {"response":"User Not Found"}, 404
+
+
+@app.route("/delete", methods=["DELETE"])
+def delete_data():
+    raw = request.json
+    key = raw.get("user_id")
+    if key in details:
+        details.pop(key)
+        return {"response":"User Deleted :("}, 200
+    else:
+        return {"response":"User Not Found"}, 404
